@@ -3,6 +3,7 @@
 #load "fanTop.cma";;
 #directory "+compiler-libs";;
 #load "ocamlcommon.cma";;
+#directory "_build/common";;
 let fmt = std_formatter
 let _loc = FLoc.ghost;;
 

@@ -2,8 +2,10 @@
 open LibUtil
 
 (** FIXME a better register mode *)
-open Mktop;;
-
+(* open Mktop;; *)
+let (wrap,toplevel_phrase,use_file)  =
+  Mktop.((wrap,  toplevel_phrase,use_file))
+    
 (* avoid dependency on [Parse] module  *)
 let parse_toplevel_phrase_old = !Toploop.parse_toplevel_phrase;;
 let use_file_old = !Toploop.parse_use_file ;;
