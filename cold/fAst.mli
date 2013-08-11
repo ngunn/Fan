@@ -84,7 +84,10 @@ type literal =
 
    for [rec_flag] [ rec => P]
 
-   for [row_var_flag] [`RowVar => P] *)      
+   for [row_var_flag] [`RowVar => P]
+
+   for [open_flag] [ Override => p ]
+ *)      
 type flag =
   [ `Positive of loc
   | `Negative of loc
