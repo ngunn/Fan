@@ -10,7 +10,7 @@ module Action = Gaction
 
 let default_keywords =
   ["&&"; "functor"; "||"; "private"; "sig"; "include";
-   "exception"; "inherit"; "<"; "~"; "and"; (* "ELSE"; *)
+   "exception"; "inherit"; "<"; "~"; "and";
    "when"; ","; "mod"; "then"; "|]"; "initializer";
    "#";  "!"; "-." ; "_"; ">]" ; "??" ; "in"
      ; "->"; "downto"; "lsr"; "as"; "function"; "begin";
@@ -20,9 +20,9 @@ let default_keywords =
    "to"; "try"; ":>"; "lsl"; "struct"; "else"; "*"; "val"
      ;  "constraint"; "type"; "new"; "of";
    "<-"; "done"; "for"; "&"; ";;"; "{"; "fun"; "method"
-     ; "'"; ";"; "mutable"(* ; "UNDEF" *); "lazy"; "["; "}";
+     ; "'"; ";"; "mutable"; "lazy"; "["; "}";
    "[|"; "with"; "[^"; "`"; "::"; "]"; "asr"; "[>";
-   ":="; (* "DEFINE"; *) "if"; "while"(* ; "IN";  "END" *)
+   ":="; (* "DEFINE"; *) "if"; "while"
      ; "rec"; "parser"; "object"; "or"; "-"; "("; "match"
      ; "open"; "module";  "?"; ">"; "let"; "lor"; "["]
 
@@ -123,7 +123,6 @@ let sfold1sep = Gfold.sfold1sep
 
 (* [eoi_entry] could be improved   *)
 let eoi_entry entry =
-  let open Gstru in
   let g = gram_of_entry entry in
   let entry_eoi = (mk_dynamic g (name entry ^ "_eoi")) in
   ({:extend| entry_eoi: [  entry{x}; `EOI -> x ] |} ;

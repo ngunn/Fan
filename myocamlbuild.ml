@@ -451,7 +451,7 @@ rule "fane.byte"
           P t ;])
   );;
 let () =
-  let ast = "src/fAst.mli" in
+  let ast = "common/fAst.mli" in
   let ast_n = "src/fAstN.ml" in
   let objs = "src/objs.ml" in
   let objs_n = "src/objsN.ml" in
@@ -462,7 +462,6 @@ let () =
     ast_n |-? [ast];
     objs |-? [ast];
     objs_n |-? [ast_n];
-    (* "src/fanAst.ml"   |-? [ast]; *)
     "src/astLib.ml" |-? [ast];
     "src/fanAstN.ml"  |-? [ast_n; ast];
     "src/astLoc.ml" |-? [ast];
