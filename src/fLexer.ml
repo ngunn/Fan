@@ -390,7 +390,8 @@ let  token c = {:lexer|
            ( warn Comment_start (FLoc.of_lexbuf lexbuf) ;
               comment c c.lexbuf; `COMMENT (buff_contents c))
   | "*)" ->
-           ( warn Comment_not_end (FLoc.of_lexbuf lexbuf) ;
+           (prerr_endline "hei";
+            warn Comment_not_end (FLoc.of_lexbuf lexbuf) ;
              move_curr_p (-1) c; `SYMBOL "*")
   | "{<" as s -> `SYMBOL s
   | ">}" as s -> `SYMBOL s

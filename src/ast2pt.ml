@@ -4,17 +4,19 @@
     dependency or only dependent on those generated files*)
 
 (*************************************************************************)  
-open AstLib
+
 open Parsetree
 open Longident
 open Asttypes
 open LibUtil
 open ParsetreeHelper
 open FLoc
-open FanOps
+
 open FAst
 
-open Objs;;
+open AstLib  
+(* open Objs;; *)
+let dump_ident  = Objs.(dump_ident)
 
 (*************************************************************************)
 (* utility begin *)
@@ -1246,7 +1248,21 @@ let directive (x:exp) = with exp  match x with
   | `Int(_,i) -> Pdir_int (int_of_string i)
   | {| true |} -> Pdir_bool true
   | {| false |} -> Pdir_bool false
-  | e -> Pdir_ident (ident_noloc (ident_of_exp e)) 
+  | e ->
+      let ident_of_exp : exp -> ident =
+        let error () = invalid_arg "ident_of_exp: this expession is not an identifier" in
+        let rec self (x:exp) : ident =
+          match x with 
+          | `App(_loc,e1,e2) -> `Apply(_loc,self e1, self e2)
+          | `Field(_loc,e1,e2) -> `Dot(_loc,self e1,self e2)
+          | `Lid _  -> error ()
+          | `Uid _ | `Dot _ as i -> (i:vid:>ident)
+          | _ -> error ()  in 
+        function
+          | #vid as i ->  (i:vid :>ident)
+          | `App _ -> error ()
+          | t -> self t in
+      Pdir_ident (ident_noloc (ident_of_exp e)) 
 
 let phrase (x: stru) =
   match x with 
